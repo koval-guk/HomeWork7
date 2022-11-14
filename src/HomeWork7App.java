@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -17,8 +18,10 @@ public class HomeWork7App {
         System.out.println("your string contained string \"" + target + "\" at position " + findWordPosition(source, target));
         System.out.println("reverse string is \"" + stringReverse(source) + "\"");
         System.out.println("is it palindrome - " + isPalindrome(source));
-        System.out.println("********************");
-        game(words);
+        System.out.println("********game1************");
+        game_2_0(words);
+        System.out.println("********game2************");
+        game_2_1(words);
         scanner.close();
     }
 
@@ -74,6 +77,61 @@ public class HomeWork7App {
             }
             System.out.println();
         }
-        scanner.close();
+    }
+
+    private static void game_2_0(String[] words) {
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
+        String word = words[random.nextInt(words.length)];
+        String temp = "###############";
+        String answer = "";
+        int count = 0;
+        while (true) {
+            if (answer.equalsIgnoreCase(word)) {
+                System.out.println("Yes, the word is \"" + word + "\".");
+                break;
+            } else if (count == word.length()) {
+                System.out.println("No :( , the word is \"" + word + "\".");
+                break;
+            } else {
+                System.out.print("Try number " + (count + 1) + ". Guess the word : ");
+                answer = scanner.nextLine();
+                temp = temp.replaceFirst("#", String.valueOf(word.charAt(count)));
+                System.out.println(temp);
+                count++;
+            }
+        }
+    }
+
+    private static void game_2_1(String[] words) {
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
+        String word = words[random.nextInt(words.length)];
+        char[] tempArray = new char[14];
+        String answer = "";
+        int count = 0;
+        int tempRandom;
+        Arrays.fill(tempArray, '#');
+        while (true) {
+            if (answer.equalsIgnoreCase(word)) {
+                System.out.println("Yes, the word is \"" + word + "\".");
+                break;
+            } else if (count == word.length()) {
+                System.out.println("No :( , the word is \"" + word + "\".");
+                break;
+            } else {
+                System.out.print("Try number " + (count + 1) + ". Guess the word : ");
+                answer = scanner.nextLine();
+                while (true) {
+                    tempRandom = random.nextInt(word.length());
+                    if (tempArray[tempRandom] == '#') {
+                        tempArray[tempRandom] = word.charAt(tempRandom);
+                        break;
+                    }
+                }
+            }
+            System.out.println(tempArray);
+            count++;
+        }
     }
 }
